@@ -1,0 +1,41 @@
+criar um docker 
+docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+
+criar migrations 
+yarn sequelize-cli migration:create --name=create-users
+
+criar as migrations
+yarn sequelize-cli db:migrate
+
+apaga a ultima migrate
+yarn sequelize-cli db:migrate:undo - undoAll
+
+yarn add express jsonwebtoken sequelize pg pg-hstore bcryptjs 
+yarn add nodemon sucrase sequelize-cli -D 
+
+nodemon.json
+{
+    "execMap": {
+        "js": "node -r sucrase/register"
+    }
+}
+
+.sequelizerc
+const { resolve } = require('path');
+module.exports = {
+    config: resolve(__dirname, 'src', 'config', 'database.js'),
+    'models-path': resolve(__dirname, 'src', 'app', 'models'),
+    'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
+    'seeders-path': resolve(__dirname, 'src', 'database', 'seeders'),
+};
+
+module.exports = {
+    dialect: 'sqlite',
+    host: 'localhost',
+    storage: './database.sqlite',
+    define: {
+        timestamps: true,
+        underscored: true,
+        underscoredAll: true
+    }
+}
