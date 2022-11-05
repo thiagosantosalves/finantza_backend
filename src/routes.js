@@ -23,6 +23,8 @@ import ReportFullPdfController from './app/controller/ReportFullPdfController';
 import ProcessOfxController from './app/controller/ProcessOfxController';
 import BankConsolidationController from './app/controller/BankConsolidationController';
 import CardCreditReleasesController from './app/controller/CardCreditReleasesController';
+import DpCategoryFilterController from './app/controller/DpCategoryFilterController';
+import MetaController from './app/controller/MetaController';
 
 router.post('/user', UserController.store);
 router.get('/user', UserController.show);
@@ -55,6 +57,8 @@ router.get('/dpcategory', DpCategoryController.show);
 router.post('/dpcategory', DpCategoryController.store);
 router.put('/dpcategory/:id', DpCategoryController.update);
 
+router.get('/dpcategoryfilter/:ids', DpCategoryFilterController.index)
+
 router.get('/cardcredit/:id', CardCreditController.index);
 router.get('/cardcredit', CardCreditController.show);
 router.post('/cardcredit', CardCreditController.store);
@@ -78,5 +82,10 @@ router.get('/cardcreditreleases/:id', CardCreditReleasesController.index)
 router.get('/cardcreditreleases', CardCreditReleasesController.show);
 router.post('/cardcreditreleases', CardCreditReleasesController.store);
 router.put('/cardcreditreleases/:id', CardCreditReleasesController.update);
+
+router.get('/meta/:id', MetaController.index);
+router.get('/meta', MetaController.show);
+router.post('/meta', MetaController.store);
+router.put('/meta/:id', MetaController.put);
 
 export default router;

@@ -9,6 +9,8 @@ import CardCredit from "../app/models/CardCredit";
 import Tags from '../app/models/Tags';
 import Releases from '../app/models/Releases';
 import CardCreditReleases from '../app/models/CardCreditReleases';
+import Meta from "../app/models/Meta";
+
 
 import  databaseConfig from '../config/database';
 
@@ -21,7 +23,8 @@ const models = [
     CardCredit, 
     Tags, 
     Releases,   
-    CardCreditReleases          
+    CardCreditReleases,
+    Meta          
 ];
 
 class Database {
