@@ -4,69 +4,85 @@ import DpCategory from '../models/DpCategory';
 class MetaController {
 
     async index(request, response) {
+        
+        try {
+            let id = request.params.id;
 
-        let id = request.params.id;
-
-        const res = await Meta.findAll({
-            where: { id },
-            include: {
-                model: DpCategory,
-                as: 'category',
-                attributes: ['name', 'id_icon', 'color_hex']
-            }
-        })
+            const res = await Meta.findAll({
+                where: { id },
+                include: {
+                    model: DpCategory,
+                    as: 'category',
+                    attributes: ['name', 'id_icon', 'color_hex']
+                }
+            })
         
         return response.status(200).json(res);
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' });     
+        }
     }
 
     async show(request, response) {
 
-        const res = await Meta.findAll({
-            where:{ user_id: request.userId },
-            include: {
-                model: DpCategory,
-                as: 'category',
-                attributes: ['name', 'id_icon', 'color_hex']
-            }
-        });
+        try {
+            const res = await Meta.findAll({
+                where:{ user_id: request.userId },
+                include: {
+                    model: DpCategory,
+                    as: 'category',
+                    attributes: ['name', 'id_icon', 'color_hex']
+                }
+            });
+    
+            return response.status(200).json(res);
 
-        return response.status(200).json(res);
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' });     
+        }
     }
 
     async store(request, response) {
 
-        const { 
-            month, 
-            year, 
-            id_category, 
-            value,
-            used_value,
-            porcent,
-            status
-        } = request.body;
+        const data = request.body;
 
-        const res = await Meta.create({
-            month, 
-            year, 
-            id_category, 
-            value,
-            used_value,
-            porcent,
-            status,
-            user_id: request.userId
+        let newData = data.map(e => {
+            
+            let info = {
+                month: e.month,
+                year: e.year,
+                id_category: e.id_category,
+                value: e.value,
+                used_value: e.used_value,
+                porcent: e.porcent,
+                status: e.status,
+                user_id: request.userId
+            }
+
+            return info;
         });
 
-        return response.status(200).json(res);
+        try {
+            const res = await Meta.bulkCreate(newData);
+            return response.status(200).json(res);
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' });     
+        }
+
     }
 
     async put(request, response) {
+        try {
+            const id = request.params.id;
 
-        const id = request.params.id;
-
-        const meta = await Meta.findByPk(id);
-        const res = await meta.update(request.body);
-        
-        return response.status(200).json(res);
+            const meta = await Meta.findByPk(id);
+            const res = await meta.update(request.body);
+            
+            return response.status(200).json(res);
+            
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' });     
+        }
     }
 }
 
