@@ -13,7 +13,7 @@ class MetaController {
                 include: {
                     model: DpCategory,
                     as: 'category',
-                    attributes: ['name', 'id_icon', 'color_hex']
+                    attributes: ['id', 'name', 'id_icon', 'color_hex']
                 }
             })
         
@@ -31,7 +31,7 @@ class MetaController {
                 include: {
                     model: DpCategory,
                     as: 'category',
-                    attributes: ['name', 'id_icon', 'color_hex']
+                    attributes: ['id', 'name', 'id_icon', 'color_hex']
                 }
             });
     
