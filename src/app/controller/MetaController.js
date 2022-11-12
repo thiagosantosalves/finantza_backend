@@ -73,10 +73,31 @@ class MetaController {
 
     async put(request, response) {
         try {
+
             const id = request.params.id;
 
             const meta = await Meta.findByPk(id);
-            const res = await meta.update(request.body);
+
+            const { newValue } = request.body;
+            const usedValue = meta.used_value;
+
+            let newPorcent = usedValue * 100;
+            newPorcent =  Number(newPorcent) / Number(newValue); 
+            newPorcent = Number(newPorcent.toFixed(2));
+
+            let isStatus = false;
+
+            if(newPorcent >= 100) {
+                console.log('entrou');
+                newPorcent = 100;
+                isStatus = true;
+            } 
+
+            const res = await meta.update({
+                value: newValue,
+                porcent: newPorcent,
+                status: isStatus
+            });
             
             return response.status(200).json(res);
             
