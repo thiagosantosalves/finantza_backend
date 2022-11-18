@@ -88,7 +88,6 @@ class MetaController {
             let isStatus = false;
 
             if(newPorcent >= 100) {
-                console.log('entrou');
                 newPorcent = 100;
                 isStatus = true;
             } 
@@ -104,6 +103,26 @@ class MetaController {
         } catch (error) {
             return response.status(400).json({ error: 'Incorrect request.' });     
         }
+    }
+
+    async delete(request, response) {
+
+        try {
+
+            const id = request.params.id;
+
+            await Meta.destroy({
+                where:{
+                    id: id
+                }
+            });
+
+            return response.status(400).json({ error: 'meta successfully deleted.' });     
+            
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' });     
+        }
+
     }
 }
 

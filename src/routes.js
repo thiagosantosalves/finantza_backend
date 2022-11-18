@@ -87,5 +87,6 @@ router.get('/meta/:id', MetaController.index);
 router.get('/meta', MetaController.show);
 router.post('/meta', MetaController.store);
 router.put('/meta/:id', MetaController.put);
+router.delete('/meta/:id', MetaController.delete);
 
 export default router;
