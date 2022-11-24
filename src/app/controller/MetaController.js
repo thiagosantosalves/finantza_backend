@@ -78,6 +78,10 @@ class MetaController {
 
             const meta = await Meta.findByPk(id);
 
+            await meta.update({
+                porcent: 0,
+            }); 
+
             const { newValue } = request.body;
             const usedValue = meta.used_value;
 
@@ -96,7 +100,7 @@ class MetaController {
                 value: newValue,
                 porcent: newPorcent,
                 status: isStatus
-            });
+            }); 
             
             return response.status(200).json(res);
             

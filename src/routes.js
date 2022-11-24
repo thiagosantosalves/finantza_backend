@@ -25,6 +25,7 @@ import BankConsolidationController from './app/controller/BankConsolidationContr
 import CardCreditReleasesController from './app/controller/CardCreditReleasesController';
 import DpCategoryFilterController from './app/controller/DpCategoryFilterController';
 import MetaController from './app/controller/MetaController';
+import MetaReleasesController from './app/controller/MetaReleasesController';
 
 router.post('/user', UserController.store);
 router.get('/user', UserController.show);
@@ -88,5 +89,7 @@ router.get('/meta', MetaController.show);
 router.post('/meta', MetaController.store);
 router.put('/meta/:id', MetaController.put);
 router.delete('/meta/:id', MetaController.delete);
+
+router.put('/metareleases/:id', MetaReleasesController.put);
 
 export default router;
