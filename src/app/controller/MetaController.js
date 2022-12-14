@@ -56,7 +56,8 @@ class MetaController {
                 used_value: e.used_value,
                 porcent: e.porcent,
                 status: e.status,
-                user_id: request.userId
+                user_id: request.userId,
+                notification: true
             }
 
             return info;
@@ -113,13 +114,8 @@ class MetaController {
 
         try {
 
-            const id = request.params.id;
-
-            await Meta.destroy({
-                where:{
-                    id: id
-                }
-            });
+            const meta = await Meta.findByPk(request.params.id);
+            meta.destroy();
 
             return response.status(400).json({ error: 'meta successfully deleted.' });     
             

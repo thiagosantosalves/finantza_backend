@@ -9,6 +9,7 @@ class Meta extends Model {
             used_value: Sequelize.INTEGER,
             porcent: Sequelize.INTEGER,
             status: Sequelize.BOOLEAN,
+            notification: Sequelize.BOOLEAN
         }, {
             sequelize
         });
