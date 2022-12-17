@@ -19,7 +19,9 @@ class Releases extends Model {
             type_payer: Sequelize.BOOLEAN,
             account_origin: Sequelize.INTEGER,
             account_destiny: Sequelize.INTEGER,
-            paying_account_name: Sequelize.STRING
+            paying_account_name: Sequelize.STRING,
+            meta_id: Sequelize.SMALLINT,
+            meta: Sequelize.BOOLEAN
         }, {
             sequelize
         })
