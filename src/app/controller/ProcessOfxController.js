@@ -7,6 +7,11 @@ class ProcessOfxController {
         const fileOfx = request.file;
         let nameFile = fileOfx.filename.split('.');
 
+        function isNegative(num) {
+            return Math.sign(num) === -1;
+        }
+          
+
         function doTruncarStr(str, size){
             if (str==undefined || str=='undefined' || str =='' || size==undefined || size=='undefined' || size ==''){
                 return str;
@@ -14,7 +19,7 @@ class ProcessOfxController {
              
             var shortText = str;
             if(str.length >= size+3){
-                shortText = str.substring(0, size).concat('...');
+                shortText = str.substring(0, size).concat('..');
             }
             return shortText;
         }   
@@ -31,8 +36,13 @@ class ProcessOfxController {
             
                 const resDebit = releasesDebit.map(e => {
 
-                    let newValor = e.TRNAMT.split('-');
-                    newValor = Number(newValor[1]);
+                    let newValor = '';
+                    if(isNegative(e.TRNAMT)) {
+                        newValor = e.TRNAMT.split('-');
+                        newValor = Number(newValor[1]);
+                    } else {
+                        newValor = e.TRNAMT
+                    }
 
                     let day = e.DTPOSTED.substring(6, 8);
                     let year = e.DTPOSTED.substring(0, 4);
@@ -41,7 +51,7 @@ class ProcessOfxController {
                     day = day.replace(/^(0+)(\d)/g,"$2");
 
                     let release = {
-                        description: doTruncarStr(e.MEMO, 60),
+                        description: doTruncarStr(e.MEMO, 30),
                         value: newValor,
                         type: 0,
                         typeName: e.TRNTYPE,
@@ -63,7 +73,7 @@ class ProcessOfxController {
                     day = day.replace(/^(0+)(\d)/g,"$2");
 
                     let release = {
-                        description: doTruncarStr(e.MEMO, 60),
+                        description: doTruncarStr(e.MEMO, 30),
                         value: Number(e.TRNAMT),
                         type: 1,
                         typeName: e.TRNTYPE,
@@ -99,6 +109,7 @@ class ProcessOfxController {
             return response.status(415).json({ error: 'The file type is not valid!' });
         }   
     }
+
 }
 
 export default new ProcessOfxController();

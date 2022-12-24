@@ -1,11 +1,11 @@
-import ofxparser from 'node-ofx-parser';
-import fs from 'fs';
+import Releases from '../models/Releases';
 
 class BankConsolidationController {
 
     async store(request, response) {
-
-        return response.status(200).json({ msn: true })
+       
+      
+        return response.status(200).json({msn: true});
     }
 }
 

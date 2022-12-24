@@ -76,7 +76,7 @@ router.get('/releases', ReleasesController.show);
 router.post('/releases', ReleasesController.store);
 router.put('/releases/:id', ReleasesController.update);
 
-router.post('/processofx', upload.single('file'), ProcessOfxController.store)
+router.post('/processofx', upload.single('file'), ProcessOfxController.store);
 router.post('/bankconsolidation', BankConsolidationController.store);
 
 router.get('/cardcreditreleases/:id', CardCreditReleasesController.index)
