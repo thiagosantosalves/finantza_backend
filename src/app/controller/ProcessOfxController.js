@@ -5,13 +5,14 @@ class ProcessOfxController {
 
     async store(request, response) {
         const fileOfx = request.file;
+
         let nameFile = fileOfx.filename.split('.');
+        
 
         function isNegative(num) {
             return Math.sign(num) === -1;
         }
-          
-
+        
         function doTruncarStr(str, size){
             if (str==undefined || str=='undefined' || str =='' || size==undefined || size=='undefined' || size ==''){
                 return str;
@@ -51,6 +52,7 @@ class ProcessOfxController {
                     day = day.replace(/^(0+)(\d)/g,"$2");
 
                     let release = {
+                        id: Math.floor(Date.now() * Math.random()).toString(36),
                         description: doTruncarStr(e.MEMO, 30),
                         value: newValor,
                         type: 0,
@@ -59,6 +61,10 @@ class ProcessOfxController {
                         day,
                         month,
                         year,
+                        category_id: null,
+                        category_name: null,
+                        category_hex: null,
+                        category_icon: null,
                     }
     
                     return release;
@@ -73,6 +79,7 @@ class ProcessOfxController {
                     day = day.replace(/^(0+)(\d)/g,"$2");
 
                     let release = {
+                        id: Math.floor(Date.now() * Math.random()).toString(36),
                         description: doTruncarStr(e.MEMO, 30),
                         value: Number(e.TRNAMT),
                         type: 1,
@@ -81,6 +88,10 @@ class ProcessOfxController {
                         day,
                         month,
                         year,
+                        category_id: null,
+                        category_name: null,
+                        category_hex: null,
+                        category_icon: null,
                     }
     
                     return release;
@@ -91,7 +102,7 @@ class ProcessOfxController {
                         if(err) throw err;
                         console.log('FIle deleted!');
                     });
-                }, 10000);
+                }, 2000);
 
                 const res = resCredit.concat(resDebit);
     
