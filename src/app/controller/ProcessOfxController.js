@@ -8,12 +8,12 @@ class ProcessOfxController {
 
         let nameFile = fileOfx.filename.split('.');
         
-
         function isNegative(num) {
             return Math.sign(num) === -1;
         }
         
         function doTruncarStr(str, size){
+
             if (str==undefined || str=='undefined' || str =='' || size==undefined || size=='undefined' || size ==''){
                 return str;
             }
@@ -31,10 +31,20 @@ class ProcessOfxController {
                 if (err) throw err;
             
                 const data = ofxparser.parse(ofxData);
-    
-                const releasesCredit = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN.filter(e => e.TRNTYPE === 'CREDIT');
-                const releasesDebit = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN.filter(e => e.TRNTYPE === 'DEBIT');
-            
+
+                let newData = [];
+
+                if(data.OFX.CREDITCARDMSGSRSV1) {
+                    newData = data.OFX.CREDITCARDMSGSRSV1.CCSTMTTRNRS.CCSTMTRS.BANKTRANLIST.STMTTRN;
+                }
+
+                if(data.OFX.BANKMSGSRSV1) {
+                    newData = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN;
+                }
+
+                const releasesCredit = newData.filter(e => e.TRNTYPE === 'CREDIT');
+                const releasesDebit = newData.filter(e => e.TRNTYPE === 'DEBIT');
+
                 const resDebit = releasesDebit.map(e => {
 
                     let newValor = '';
@@ -105,7 +115,7 @@ class ProcessOfxController {
                 }, 2000);
 
                 const res = resCredit.concat(resDebit);
-    
+
                 return response.status(200).json(res);
             }); 
         
@@ -120,7 +130,6 @@ class ProcessOfxController {
             return response.status(415).json({ error: 'The file type is not valid!' });
         }   
     }
-
 }
 
 export default new ProcessOfxController();
