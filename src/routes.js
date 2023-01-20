@@ -71,8 +71,7 @@ router.post('/tags', TagsController.store);
 router.put('/tags/:id', TagsController.update);
 router.delete('/tags/:id', TagsController.delete);
 
-router.get('/releases/:id', ReleasesController.index);
-router.get('/releases', ReleasesController.show);
+router.get('/releases/:rulesfilter', ReleasesController.index);
 router.post('/releases', ReleasesController.store);
 router.put('/releases/:id', ReleasesController.update);
 

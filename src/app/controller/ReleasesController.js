@@ -10,8 +10,18 @@ import File from '../models/File';
 class ReleasesController {
 
     async index(request, response) {
-        
-        const res = await Releases.findByPk(request.params.id, {
+
+        let rules = request.params.rulesfilter.split('&');
+
+        const data = await Releases.findAndCountAll( {
+            where: { 
+                user_id: request.userId,
+                month: rules[0],
+                year: rules[1],
+            },
+            order: [
+                ['id', 'DESC']
+            ],
             include: [
                 {
                     model: Account,
@@ -45,51 +55,28 @@ class ReleasesController {
                 }
             ]
         });
- 
-        return response.status(200).json(res);
+
+        const resRc = data.rows.filter(item => item.type === 1 && item.installments === false);
+        const resRcInstallments = data.rows.filter(item => item.type === 1 && item.installments === true);
+        const resDp = data.rows.filter(item => item.type === 2 && item.installments === false);
+        const resDpInstallments = data.rows.filter(item => item.type === 2 && item.installments === true);
+        const sum = resRc.reduce((prevVal, elem) => Number(prevVal) + Number(elem.value), 0)
+        const sumParc = resRcInstallments.reduce((prevVal, elem) => Number(prevVal) + Number(elem.value_installments), 0);
+        const sumD = resDp.reduce((prevVal, elem) => Number(prevVal) + Number(elem.value), 0)
+        const sumParcD = resDpInstallments.reduce((prevVal, elem) => Number(prevVal) + Number(elem.value_installments), 0);
+
+        const sumRc = Number(sumParc) + Number(sum);
+        const sumDp = Number(sumD) + Number(sumParcD);
+        const sumTotal = Number(sumRc) - Number(sumDp);
+        
+        return response.status(200).json({
+            sumTotal: sumTotal,
+            sumRc: sumRc,
+            sumDp: sumDp,
+            releases: data.rows
+        });
     }
 
-    async show(request, response) {
-
-        const res = await Releases.findAll({
-            where: { user_id: request.userId },
-            include: [
-                {
-                    model: Account,
-                    as: 'account',
-                    attributes: ['id', 'name', 'type_id', 'type', 'color_hex', 'value' ]
-                },
-                {
-                    model: CardCredit,
-                    as: 'card_credit',
-                    attributes: ['id', 'name', 'institution', 'id_institution', 'color_hex']
-                },
-                {
-                    model: RcCategory,
-                    as: 'rc_category',
-                    attributes: ['id', 'name', 'id_icon', 'color_hex']
-                },
-                {
-                    model: DpCategory,
-                    as: 'dp_category',
-                    attributes: ['id', 'name', 'id_icon', 'color_hex']
-                },
-                {
-                    model: Tags,
-                    as: 'tags',
-                    attributes: ['id', 'name']
-                },
-                {
-                    model: File,
-                    as: 'anexo_img',
-                    attributes: ['id', 'name', 'url', 'path']
-                }
-            ]
-        })
-
-        return response.status(200).json(res);
-    }
- 
     async store(request, response) {
 
         const { 
