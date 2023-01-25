@@ -4,46 +4,63 @@ class DpCategoryController {
 
     async index(request, response) {
 
-        const id = request.params.id;
+        try {
+            const id = request.params.id;
 
-        const category = await DpCategory.findByPk(id, {
-            where: {user_id: request.userId}
-        });
-
-        return response.status(200).json(category);
+            const category = await DpCategory.findByPk(id, {
+                where: {user_id: request.userId}
+            });
+    
+            return response.status(200).json(category);
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' }); 
+        }
+       
     }
 
     async show(request, response) {
 
-        const category = await DpCategory.findAll({
-            where: {user_id: request.userId}
-        });
-
-        return response.status(200).json(category);
+        try {
+            const category = await DpCategory.findAll({
+                where: {user_id: request.userId}
+            });
+    
+            return response.status(200).json(category);
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' }); 
+        }        
     }
 
     async store(request, response) {
 
-        const { name, id_icon, color_hex } = request.body;
+        try {
+            const { name, id_icon, color_hex } = request.body;
 
-        const category = await DpCategory.create({
-            name, 
-            id_icon, 
-            color_hex,
-            user_id: request.userId
-        });
+            const category = await DpCategory.create({
+                name, 
+                id_icon, 
+                color_hex,
+                user_id: request.userId
+            });
 
-        return response.status(200).json(category);
+            return response.status(200).json(category);
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' }); 
+        }
     }
 
     async update(request, response) {
         
-        const { id } = request.params;
+        try {
+            const { id } = request.params;
 
-        const category = await DpCategory.findByPk(id);
-        const newCategory = await category.update(request.body)
-
-        return response.status(200).json(newCategory);
+            const category = await DpCategory.findByPk(id);
+            const newCategory = await category.update(request.body)
+    
+            return response.status(200).json(newCategory);
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' }); 
+        }  
     }
 }
 

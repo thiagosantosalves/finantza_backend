@@ -7,7 +7,8 @@ class ReportFullPdfController {
 
     async store(request, response) {
 
-        let data  = request.body;
+        try {
+            let data  = request.body;
         let releases = data.report;
         let month = data.month;
         let year = data.year;
@@ -57,6 +58,9 @@ class ReportFullPdfController {
                 });
             }
         }); 
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' }); 
+        }
     }   
 }
 

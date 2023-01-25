@@ -26,6 +26,7 @@ import CardCreditReleasesController from './app/controller/CardCreditReleasesCon
 import DpCategoryFilterController from './app/controller/DpCategoryFilterController';
 import MetaController from './app/controller/MetaController';
 import MetaReleasesController from './app/controller/MetaReleasesController';
+import ReportFilterController from './app/controller/ReportFilterController';
 
 router.post('/user', UserController.store);
 router.get('/user', UserController.show);
@@ -89,5 +90,8 @@ router.put('/meta/:id', MetaController.put);
 router.delete('/meta/:id', MetaController.delete);
 
 router.put('/metareleases/:id', MetaReleasesController.put);
+
+router.get('/reportFilter/:rulesfilter', ReportFilterController.show)
+
 
 export default router;
