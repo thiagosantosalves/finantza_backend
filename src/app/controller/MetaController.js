@@ -5,29 +5,18 @@ class MetaController {
 
     async index(request, response) {
         
-        try {
-            let id = request.params.id;
-
-            const res = await Meta.findAll({
-                where: { id },
-                include: {
-                    model: DpCategory,
-                    as: 'category',
-                    attributes: ['id', 'name', 'id_icon', 'color_hex']
-                }
-            })
-        
-        return response.status(200).json(res);
-        } catch (error) {
-            return response.status(400).json({ error: 'Incorrect request.' });     
-        }
-    }
-
-    async show(request, response) {
+        let rules = request.params.rulesfilter.split('&');
 
         try {
             const res = await Meta.findAll({
-                where:{ user_id: request.userId },
+                where: { 
+                    user_id: request.userId,
+                    month: rules[0],
+                    year: rules[1],
+                },
+                order: [
+                    ['id', 'DESC']
+                ],
                 include: {
                     model: DpCategory,
                     as: 'category',

@@ -26,6 +26,7 @@ import CardCreditReleasesController from './app/controller/CardCreditReleasesCon
 import DpCategoryFilterController from './app/controller/DpCategoryFilterController';
 import MetaController from './app/controller/MetaController';
 import MetaReleasesController from './app/controller/MetaReleasesController';
+import MetaFilterController from './app/controller/MetaFilterController';
 import ReportFilterController from './app/controller/ReportFilterController';
 
 router.post('/user', UserController.store);
@@ -83,13 +84,13 @@ router.get('/cardcreditreleases', CardCreditReleasesController.show);
 router.post('/cardcreditreleases', CardCreditReleasesController.store);
 router.put('/cardcreditreleases/:id', CardCreditReleasesController.update);
 
-router.get('/meta/:id', MetaController.index);
-router.get('/meta', MetaController.show);
+router.get('/meta/:rulesfilter', MetaController.index);
 router.post('/meta', MetaController.store);
 router.put('/meta/:id', MetaController.put);
 router.delete('/meta/:id', MetaController.delete);
 
 router.put('/metareleases/:id', MetaReleasesController.put);
+router.get('/metafilter/:id', MetaFilterController.index);
 
 router.get('/reportFilter/:rulesfilter', ReportFilterController.show)
 
