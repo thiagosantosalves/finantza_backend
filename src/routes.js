@@ -28,12 +28,12 @@ import MetaController from './app/controller/MetaController';
 import MetaReleasesController from './app/controller/MetaReleasesController';
 import MetaFilterController from './app/controller/MetaFilterController';
 import ReportFilterController from './app/controller/ReportFilterController';
+import HistoryDeleteController from './app/controller/HistoryDeleteController';
 
+router.get('/user/:id', UserController.index);
 router.post('/user', UserController.store);
 router.get('/user', UserController.show);
 router.post('/session', SessionController.store);
-
-router.post('/files', upload.single('file'), FileController.store);
 
 router.post('/reportpdf', ReportPdfController.store);
 router.post('/reportexel', ReportReleasesExelController.store);
@@ -44,6 +44,9 @@ router.post('/reportfullexel', ReportFullExelController.store);
 router.use(authMiddleware);
 
 router.put('/user', UserController.update);
+
+router.post('/files', upload.single('file'), FileController.store);
+router.delete('/files/:id', FileController.delete);
 
 router.get('/account/:id', AccountController.index);
 router.get('/account', AccountController.show);
@@ -79,7 +82,8 @@ router.put('/releases/:id', ReleasesController.update);
 
 router.post('/bankconsolidation', BankConsolidationController.store);
 router.post('/processofx', upload.single('file'), ProcessOfxController.store);
-router.get('/cardcreditreleases/:id', CardCreditReleasesController.index);
+
+router.get('/cardcreditreleases/:rulesfilter', CardCreditReleasesController.index);
 router.get('/cardcreditreleases', CardCreditReleasesController.show);
 router.post('/cardcreditreleases', CardCreditReleasesController.store);
 router.put('/cardcreditreleases/:id', CardCreditReleasesController.update);
@@ -94,5 +98,6 @@ router.get('/metafilter/:id', MetaFilterController.index);
 
 router.get('/reportFilter/:rulesfilter', ReportFilterController.show)
 
+router.post('/historydelete', HistoryDeleteController.store);
 
 export default router;

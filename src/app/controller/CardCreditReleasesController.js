@@ -7,8 +7,30 @@ class CardCreditReleasesController {
     async index(request, response) {
 
         try {
-            let res = await CardCreditReleases.findByPk(request.params.id);
-            return response.status(200).json(res);   
+
+            let rules = request.params.rulesfilter.split('&');
+
+            let res = await CardCreditReleases.findAll({
+                where: {
+                    month: rules[0],
+                    year: rules[1],
+                },
+                include: [
+                    {
+                        model: CardCredit,
+                        as: 'card_credit',
+                        attributes: ['id', 'name', 'institution', 'id_institution', 'account_id'],
+                    },
+                    {
+                        model: Account,
+                        as: 'account',
+                        attributes: ['type_id', 'color_hex']
+                    }
+                ]
+            })
+            
+            return response.status(200).json(res);
+            
         } catch (error) {
             return response.status(400).json({ error: 'Incorrect request.' }); 
         }
@@ -42,7 +64,7 @@ class CardCreditReleasesController {
             return response.status(400).json({ error: 'Incorrect request.' }); 
         }   
     }
-
+    
     async store(request, response)  {
 
         try {

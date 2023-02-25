@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      id_user: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       path:{
         type: Sequelize.STRING,
         allowNull: false,

@@ -1,51 +1,89 @@
+import fs from 'fs';
+import { resolve } from 'path';
+
 import File from '../models/File';
-import User from '../models/User';
-import RcCategory from '../models/RcCategory';
-import Dpcategory from '../models/DpCategory';
 import Account from '../models/Account';
+import CardCreditReleases from '../models/CardCreditReleases';
+import CardCredit from '../models/CardCredit';
+import DpCategory from '../models/DpCategory';
+import RcCategory from '../models/RcCategory';
+import Meta from '../models/Meta';
+import Tags from '../models/Tags';
+import Releases from '../models/Releases';
 
-
-class userController {
-
-    async index(request, response) {
-
-        const id = request.params.id
-
-        try {
-            const user = await User.findOne({
-                where: {
-                    id: id
-                },
-                include: {
-                    model: File,
-                    as: 'avatar',
-                    attributes: ['id', 'url']
-                }
-            });
-            
-            return response.status(200).json(user);
-        } catch (error) {
-            console.log(error)
-            return response.status(400).json({ error: 'Incorrect request.' });
-        }
-    }
-
-    async show(request, response) {
-
-        try {
-            const user = await User.findAll()
-            
-            return response.status(200).json(user);
-        } catch (error) {
-            return response.status(400).json({ error: 'Incorrect request.' });
-        }
-    }    
-
+class HistoryDeleteController {
 
     async store(request, response) {
 
+        const id = request.userId;
+
         try {
-            const { id, name, email, password_hash, is_google, premium, avatar_id } = await User.create(request.body)
+
+            await Account.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+    
+            await CardCreditReleases.destroy({
+                where: {
+                    id_user: id
+                }
+            });
+    
+            await CardCredit.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+    
+            await DpCategory.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+    
+            await RcCategory.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+    
+            await Meta.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+    
+            await Tags.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+    
+            await Releases.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+    
+            let files = await File.findAll({
+                where: {
+                    id_user: id
+                }
+            }); 
+    
+            files.forEach(e => {
+                fs.unlink( resolve(__dirname, '../../upload/'+e.path), function (err) { 
+                    if(err) throw err;
+                });
+            });
+    
+            await File.destroy({
+                where: {
+                    id_user: id
+                }
+            });
 
             const rc =  [
                 {name: 'Salário', id_icon: '1', color_hex: '#17BA89', user_id: id},
@@ -89,60 +127,14 @@ class userController {
 
             await Account.create(accountInitial);
             await RcCategory.bulkCreate(rc);
-            await Dpcategory.bulkCreate(dp);
-
-            return response.status(200).json({
-                id,
-                name,
-                email,
-                is_google,
-                premium,
-                avatar_id,
-                password_hash,
-            }); 
-        } catch (error) {
-            return response.status(400).json({ error: 'Incorrect request.' });
-        }
-    }
-
-    async update(request, response) {
-
-        try {
-            
-            const user = await User.findByPk(request.userId);
-
-            const { name,  email, password, avatar_id  }  = request.body;
+            await DpCategory.bulkCreate(dp);
     
-            const emailExist = await User.findOne({ where: { email  }}); 
-
-            let res = '';
-
-            if(password) {
-                res = await user.update({
-                    password: password
-                });
-            } 
-
-            if(emailExist) {
-                res = await user.update({
-                    name: name,
-                    avatar_id: avatar_id,
-                });
-                return response.status(200).json(res);
-            } else {
-                res = await user.update({
-                    name: name,
-                    email: email,
-                    avatar_id: avatar_id
-                });
-                return response.status(200).json(res);
-            }
-        
+            return response.status(200).json({ masn: true }); 
+            
         } catch (error) {
-            return response.status(400).json({ error: 'Incorrect request.' });
+            return response.status(400).json({ error: 'Incorrect request.' });    
         }
     }
 }
 
-
-export default new userController();
+export default new HistoryDeleteController();
