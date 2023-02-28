@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      id_google: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       is_google: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
@@ -31,15 +35,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false
-      },  
-    /* 
-      avatar_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'files', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-        allowNull: true
-      }, */
+      },
       created_at:{
         type: Sequelize.DATE,
         allowNull: false
