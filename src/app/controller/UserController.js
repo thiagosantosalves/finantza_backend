@@ -45,7 +45,7 @@ class userController {
     async store(request, response) {
 
         try {
-            const { id, name, email, password_hash, is_google, premium, avatar_id } = await User.create(request.body)
+            const { id, name, email, password_hash, id_google, is_google, premium, avatar_id } = await User.create(request.body)
 
             const rc =  [
                 {name: 'Salário', id_icon: '1', color_hex: '#17BA89', user_id: id},
@@ -95,6 +95,7 @@ class userController {
                 id,
                 name,
                 email,
+                id_google,
                 is_google,
                 premium,
                 avatar_id,
