@@ -118,6 +118,10 @@ module.exports = {
         onDelete: 'SET NULL',
         allowNull: true
       },
+      id_fixed_release: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false

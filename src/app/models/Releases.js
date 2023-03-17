@@ -21,7 +21,8 @@ class Releases extends Model {
             account_destiny: Sequelize.INTEGER,
             paying_account_name: Sequelize.STRING,
             meta_id: Sequelize.SMALLINT,
-            meta: Sequelize.BOOLEAN
+            meta: Sequelize.BOOLEAN,
+            id_fixed_release: Sequelize.INTEGER
         }, {
             sequelize
         })

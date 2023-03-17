@@ -23,7 +23,7 @@ module.exports = {
         allowNull: true
       },
       id_google: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: true,
       },
       is_google: {

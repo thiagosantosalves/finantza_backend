@@ -10,7 +10,8 @@ import Tags from '../app/models/Tags';
 import Releases from '../app/models/Releases';
 import CardCreditReleases from '../app/models/CardCreditReleases';
 import Meta from "../app/models/Meta";
-
+import FixedRelease from "../app/models/fixedRelease";
+import Notification from "../app/models/Notification";
 
 import  databaseConfig from '../config/database';
 
@@ -24,7 +25,9 @@ const models = [
     Tags, 
     Releases,   
     CardCreditReleases,
-    Meta          
+    Meta,
+    FixedRelease,
+    Notification
 ];
 
 class Database {

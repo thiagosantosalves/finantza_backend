@@ -8,6 +8,7 @@ class User extends Model {
             email: Sequelize.STRING,
             password_hash: Sequelize.STRING,
             password: Sequelize.VIRTUAL,
+            id_google: Sequelize.STRING,
             is_google: Sequelize.BOOLEAN,
             premium: Sequelize.BOOLEAN
         }, {

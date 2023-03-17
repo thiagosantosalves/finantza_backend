@@ -111,7 +111,8 @@ class ReleasesController {
                 type_payer,
                 paying_account_name,
                 meta_id,
-                meta
+                meta,
+                id_fixed_release
             } = request.body;
 
             const res = await Releases.create({
@@ -139,6 +140,7 @@ class ReleasesController {
                 paying_account_name,
                 meta_id,
                 meta,
+                id_fixed_release,
                 user_id: request.userId
             });
     
