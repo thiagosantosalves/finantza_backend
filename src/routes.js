@@ -32,6 +32,7 @@ import HistoryDeleteController from './app/controller/HistoryDeleteController';
 import FixedController from './app/controller/FixedController';
 import ReleasesBulkController from './app/controller/ReleasesBulkController';
 import NotificationController from './app/controller/NotificationController';
+import FixedFilterController from './app/controller/FixedFilterController';
 
 router.get('/user/:id', UserController.index);
 router.post('/user', UserController.store);
@@ -106,12 +107,14 @@ router.post('/historydelete', HistoryDeleteController.store);
 router.get('/fixedrelease/:day', FixedController.index);
 router.post('/fixedrelease', FixedController.store);
 
+router.get('/fixedfilter/:id', FixedFilterController.index);
+
 router.post('/releasebulkcreate', ReleasesBulkController.store);
 
 router.get('/notification/:id', NotificationController.index);
 router.get('/notification', NotificationController.show);
 router.post('/notification', NotificationController.store);
 router.put('/notification/:id', NotificationController.update);
-router.delete('/notification/:id', NotificationController.delete);
+router.delete('/notification', NotificationController.delete);
 
 export default router;

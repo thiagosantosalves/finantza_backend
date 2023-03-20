@@ -64,8 +64,11 @@ class NotificationController {
     async delete(request, response) {
         try {
             
-            const notification = await Notification.findByPk(request.params.id);
-            await notification.destroy();
+            await Notification.destroy({
+                where: {
+                    user_id: request.userId
+                }
+            });
 
             return response.status(200).json({ msn: 'successfully deleted notification'});
         } catch (error) {

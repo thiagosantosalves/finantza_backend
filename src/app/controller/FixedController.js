@@ -47,11 +47,8 @@ class FixedController {
 
             return response.status(200).json(fixed);
         } catch (error) {
-            console.log(error)
             return response.status(400).json({ error: 'Incorrect request.' });
         }
-
-        
     }   
 
 }
