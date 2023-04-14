@@ -97,6 +97,14 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
+      instalments_release_id: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      instalments_text: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       tag_id: {
         type: Sequelize.INTEGER,
         references: { model: 'tags', key: 'id' },

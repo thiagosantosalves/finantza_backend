@@ -14,6 +14,7 @@ import AccountController from './app/controller/AccountController';
 import RcCategoryController from './app/controller/RcCategoryController';
 import DpCategoryController from './app/controller/DpCategoryController';
 import CardCreditController from './app/controller/CardCreditController';
+import CardCreditReleasesBulkCreateController from './app/controller/CardCreditReleasesBulkCreateController';
 import TagsController from './app/controller/TagsController';
 import ReleasesController from './app/controller/ReleasesController';
 import ReportPdfController from './app/controller/ReportPdfController';
@@ -33,6 +34,10 @@ import FixedController from './app/controller/FixedController';
 import ReleasesBulkController from './app/controller/ReleasesBulkController';
 import NotificationController from './app/controller/NotificationController';
 import FixedFilterController from './app/controller/FixedFilterController';
+import InstalmentsReleasesController from './app/controller/InstalmentsReleasesController';
+import InstalmentsFilterController from './app/controller/InstalmentsFilterController';
+
+import NotificationIndexDelete from './app/controller/NotificationIndexDelete';
 
 router.get('/user/:id', UserController.index);
 router.post('/user', UserController.store);
@@ -107,8 +112,17 @@ router.post('/historydelete', HistoryDeleteController.store);
 router.get('/fixedrelease/:day', FixedController.index);
 router.post('/fixedrelease', FixedController.store);
 
+router.get('instalmentsReleases/:day', InstalmentsReleasesController.index)
+router.post('/instalmentsReleases', InstalmentsReleasesController.store);
+
 router.get('/fixedfilter/:id', FixedFilterController.index);
 
+router.get('instalmentsReleases/:day', InstalmentsReleasesController.index)
+router.post('/instalmentsReleases', InstalmentsReleasesController.store);
+
+router.get('/instalmentsFilter/:id', InstalmentsFilterController.index);
+
+router.post('/cardcreditreleasesbulkcreate', CardCreditReleasesBulkCreateController.store);
 router.post('/releasebulkcreate', ReleasesBulkController.store);
 
 router.get('/notification/:id', NotificationController.index);
@@ -116,5 +130,7 @@ router.get('/notification', NotificationController.show);
 router.post('/notification', NotificationController.store);
 router.put('/notification/:id', NotificationController.update);
 router.delete('/notification', NotificationController.delete);
+
+router.delete('/notificationIndex/:id', NotificationIndexDelete.delete);
 
 export default router;

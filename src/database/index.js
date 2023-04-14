@@ -11,6 +11,7 @@ import Releases from '../app/models/Releases';
 import CardCreditReleases from '../app/models/CardCreditReleases';
 import Meta from "../app/models/Meta";
 import FixedRelease from "../app/models/fixedRelease";
+import InstalmentsReleases from "../app/models/InstalmentsReleases";
 import Notification from "../app/models/Notification";
 
 import  databaseConfig from '../config/database';
@@ -27,6 +28,7 @@ const models = [
     CardCreditReleases,
     Meta,
     FixedRelease,
+    InstalmentsReleases,
     Notification
 ];
 
