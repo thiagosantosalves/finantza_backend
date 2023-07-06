@@ -23,14 +23,8 @@ class InstalmentsReceitaReleasesController {
         let newText = remainingAmount+'/'+amountInstalemts;
         let newValorInstallments = null;
 
-        if(id[2] === "1") {
-            newValorInstallments = release[0].value - release[0].value_installments;
-        }
-
-        if(id[2] === "2") {
-            newValorInstallments = release[0].value + release[0].value_installments;
-        }
-        
+        newValorInstallments = Number(release[0].value) - Number(release[0].value_installments);
+    
         let newValor = newValorInstallments / amountInstalemts;
 
         await instalments.update({
@@ -38,7 +32,7 @@ class InstalmentsReceitaReleasesController {
             amount_instalemts: amountInstalemts,
             remaining_amount: remainingAmount,
             instalments_text: newText
-        });
+        }); 
 
         release = release.filter(e => e.id != id[1]);
 
@@ -57,8 +51,7 @@ class InstalmentsReceitaReleasesController {
                     value_installments: newValor,
                     instalments_text: text,
                     qd_installments: qdInstallments
-                });
-
+                }); 
             }
         } else {
             let deleteInstallments = await InstalmentsReleases.findByPk(uniqueRelease.instalments_release_id);
@@ -69,16 +62,16 @@ class InstalmentsReceitaReleasesController {
         let sumAccount = null;
 
         if(id[2] === "1") {
-            sumAccount = account.value - uniqueRelease.value_installments;
+            sumAccount = Number(account.value) - Number(uniqueRelease.value_installments);
         }
 
         if(id[2] === "2") {
-            sumAccount = account.value + uniqueRelease.value_installments;
+            sumAccount = Number(account.value) + Number(uniqueRelease.value_installments);
         }
-
+  
         await account.update({
             value: sumAccount
-        });
+        }); 
 
         let releaseDelete = await Releases.findByPk(id[1]);
         await releaseDelete.destroy();
