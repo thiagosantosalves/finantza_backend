@@ -1,4 +1,4 @@
-import FixedRelease from "../models/fixedRelease";
+import FixedRelease from "../models/FixedRelease";
 
 class FixedController {
 
@@ -53,8 +53,19 @@ class FixedController {
         } catch (error) {
             return response.status(400).json({ error: 'Incorrect request.' });
         }
-    }   
+    }
 
+    async delete(request, response) {
+        try {
+
+            const fixed = await FixedRelease.findByPk(request.params.id);
+            fixed.destroy();
+
+            return response.json({msn: true});  
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' });
+        }
+    }
 }
 
 export default new FixedController();

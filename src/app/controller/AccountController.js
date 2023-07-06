@@ -19,7 +19,10 @@ class AccountController {
 
         try {
             const accountFull = await Account.findAll({
-                where: { user_id: request.userId }
+                where: { user_id: request.userId },
+                order: [
+                    ['id', 'ASC']
+                ]
             });
     
             return response.status(200).json(accountFull); 

@@ -32,6 +32,9 @@ class CardCreditController {
         try {
             const card = await CardCredit.findAll({
                 where: {user_id: request.userId},
+                order: [
+                    ['id', 'ASC']
+                ],
                 include: [
                     {
                         model: Account,

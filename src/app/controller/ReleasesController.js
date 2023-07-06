@@ -169,6 +169,19 @@ class ReleasesController {
 
         }
     }
+
+    async delete(request, response) {
+        try {
+            
+            const release = await Releases.findByPk(request.params.id);
+            release.destroy();
+
+            return response.json({msn: true});
+        } catch (error) {
+            return response.status(400).json({ error: 'Incorrect request.' }); 
+        }
+    }
+
 }
 
 export default new ReleasesController();

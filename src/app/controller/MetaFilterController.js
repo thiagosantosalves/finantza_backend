@@ -13,6 +13,9 @@ class MetaFilterController {
                     user_id: request.userId,
                     id
                 },
+                order: [
+                    ['id', 'ASC']
+                ],
                 include: {
                     model: DpCategory,
                     as: 'category',

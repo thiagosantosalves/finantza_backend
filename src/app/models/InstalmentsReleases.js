@@ -16,6 +16,7 @@ class InstalmentsReleases extends Model {
             meta: Sequelize.BOOLEAN,
             amount_instalemts: Sequelize.INTEGER,
             remaining_amount: Sequelize.INTEGER,
+            instalments_text: Sequelize.STRING,
             user_id: Sequelize.INTEGER,
         }, {
             sequelize

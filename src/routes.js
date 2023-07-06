@@ -24,6 +24,7 @@ import ReportFullPdfController from './app/controller/ReportFullPdfController';
 import ProcessOfxController from './app/controller/ProcessOfxController';
 import BankConsolidationController from './app/controller/BankConsolidationController';
 import CardCreditReleasesController from './app/controller/CardCreditReleasesController';
+import CardCreditReleaseFilter from './app/controller/CardCreditReleaseFilter';
 import DpCategoryFilterController from './app/controller/DpCategoryFilterController';
 import MetaController from './app/controller/MetaController';
 import MetaReleasesController from './app/controller/MetaReleasesController';
@@ -36,8 +37,12 @@ import NotificationController from './app/controller/NotificationController';
 import FixedFilterController from './app/controller/FixedFilterController';
 import InstalmentsReleasesController from './app/controller/InstalmentsReleasesController';
 import InstalmentsFilterController from './app/controller/InstalmentsFilterController';
-
+import ReleasesInstalmentsFilter from './app/controller/ReleasesInstalmentsFilter';
 import NotificationIndexDelete from './app/controller/NotificationIndexDelete';
+import IdDeviceController from './app/controller/IdDeviceController';
+import InstalmentsIdReleasesController from './app/controller/InstalmentsIdReleasesController';
+import ReleaseInstallmentAdjustmentController from './app/controller/ReleaseInstallmentAdjustmentController';
+import InstalmentsReceitaReleasesController from './app/controller/InstalmentsReceitaReleasesController';
 
 router.get('/user/:id', UserController.index);
 router.post('/user', UserController.store);
@@ -88,6 +93,7 @@ router.delete('/tags/:id', TagsController.delete);
 router.get('/releases/:rulesfilter', ReleasesController.index);
 router.post('/releases', ReleasesController.store);
 router.put('/releases/:id', ReleasesController.update);
+router.delete('/releases/:id', ReleasesController.delete);
 
 router.post('/bankconsolidation', BankConsolidationController.store);
 router.post('/processofx', upload.single('file'), ProcessOfxController.store);
@@ -96,6 +102,8 @@ router.get('/cardcreditreleases/:rulesfilter', CardCreditReleasesController.inde
 router.get('/cardcreditreleases', CardCreditReleasesController.show);
 router.post('/cardcreditreleases', CardCreditReleasesController.store);
 router.put('/cardcreditreleases/:id', CardCreditReleasesController.update);
+
+router.get('/cardcreditreleasefilter/:filter', CardCreditReleaseFilter.index);
 
 router.get('/meta/:rulesfilter', MetaController.index);
 router.post('/meta', MetaController.store);
@@ -111,19 +119,25 @@ router.post('/historydelete', HistoryDeleteController.store);
 
 router.get('/fixedrelease/:day', FixedController.index);
 router.post('/fixedrelease', FixedController.store);
+router.delete('/fixedrelease/:id', FixedController.delete);
 
-router.get('instalmentsReleases/:day', InstalmentsReleasesController.index)
+router.get('/instalmentsIdReleases/:id', InstalmentsIdReleasesController.index);
+
+router.get('/instalmentsReleases/:day', InstalmentsReleasesController.index)
 router.post('/instalmentsReleases', InstalmentsReleasesController.store);
+router.put('/instalmentsReleases/:id', InstalmentsReleasesController.update)
+router.delete('/instalmentsReleases/:id', InstalmentsReleasesController.delete);
+
+router.delete('/instalmentsReceitaRelease/:id', InstalmentsReceitaReleasesController.delete);
 
 router.get('/fixedfilter/:id', FixedFilterController.index);
-
-router.get('instalmentsReleases/:day', InstalmentsReleasesController.index)
-router.post('/instalmentsReleases', InstalmentsReleasesController.store);
 
 router.get('/instalmentsFilter/:id', InstalmentsFilterController.index);
 
 router.post('/cardcreditreleasesbulkcreate', CardCreditReleasesBulkCreateController.store);
 router.post('/releasebulkcreate', ReleasesBulkController.store);
+
+router.get('/releasesInstalmentsFilter/:releaseId', ReleasesInstalmentsFilter.index);
 
 router.get('/notification/:id', NotificationController.index);
 router.get('/notification', NotificationController.show);
@@ -132,5 +146,10 @@ router.put('/notification/:id', NotificationController.update);
 router.delete('/notification', NotificationController.delete);
 
 router.delete('/notificationIndex/:id', NotificationIndexDelete.delete);
+
+router.post('/device', IdDeviceController.store);
+
+router.put('/releaseInstallmentAdjustment/:info', ReleaseInstallmentAdjustmentController.update);
+router.delete('/releaseInstallmentAdjustment/:info', ReleaseInstallmentAdjustmentController.delete);
 
 export default router;

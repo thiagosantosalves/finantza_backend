@@ -19,7 +19,7 @@ class CardCreditReleasesController {
                     {
                         model: CardCredit,
                         as: 'card_credit',
-                        attributes: ['id', 'name', 'institution', 'id_institution', 'account_id'],
+                        attributes: ['id', 'name', 'institution', 'id_institution', 'account_id', 'invoice_amount', 'limit_card'],
                     },
                     {
                         model: Account,

@@ -60,6 +60,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true
       },
+      instalments_text: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false

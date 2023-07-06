@@ -74,7 +74,7 @@ class BankConsolidationController {
 
           if(e.dp_category_id === meta.id_category) {
             totalValue =+ e.value;
-            totalValue = Number(totalValue).toFixed(2);
+            totalValue = Number(totalValue);
           }
 
           newArray.push({ id: meta.id, id_category: e.dp_category_id, month: e.month, year: e.year, 
@@ -127,7 +127,7 @@ class BankConsolidationController {
 
         let newPorcent = parseFloat(item.value) / parseFloat(item.meta_value); 
         newPorcent = newPorcent * 100;
-        newPorcent = newPorcent.toFixed(2);
+        newPorcent = newPorcent;
        
         let isStatus = false;
 
@@ -136,7 +136,7 @@ class BankConsolidationController {
           isStatus = true;
         } 
 
-        let value = item.value.toFixed(2);
+        let value = item.value;
 
 
         await Meta.update(
