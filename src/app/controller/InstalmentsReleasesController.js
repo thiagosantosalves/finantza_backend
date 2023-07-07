@@ -90,12 +90,21 @@ class InstalmentsReleasesController {
     async delete(request, response) {
         try {
 
-            const id = request.params.id;
-            const instalments = await InstalmentsReleases.findByPk(id);
+            let id = request.params.id;
+            id = id.split('-');
+            const instalments = await InstalmentsReleases.findByPk(id[0]);
 
             let account = await Account.findByPk(instalments.account_id)
             let instalmentQd = instalments.value * instalments.amount_instalemts;
-            let sum = account.value - instalmentQd;
+            let sum = null;
+
+            if(id[1] === "1") {
+                sum = Number(account.value) - Number(instalmentQd);
+            }
+    
+            if(id[1] === "2") {
+                sum = Number(account.value) + Number(instalmentQd);
+            }
 
             let release = await Releases.findAll({
                 where: {

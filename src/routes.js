@@ -43,6 +43,7 @@ import IdDeviceController from './app/controller/IdDeviceController';
 import InstalmentsIdReleasesController from './app/controller/InstalmentsIdReleasesController';
 import ReleaseInstallmentAdjustmentController from './app/controller/ReleaseInstallmentAdjustmentController';
 import InstalmentsReceitaReleasesController from './app/controller/InstalmentsReceitaReleasesController';
+import ReleaseMetaUpdateController from './app/controller/ReleaseMetaUpdateController';
 
 router.get('/user/:id', UserController.index);
 router.post('/user', UserController.store);
@@ -112,6 +113,8 @@ router.delete('/meta/:id', MetaController.delete);
 
 router.put('/metareleases/:id', MetaReleasesController.put);
 router.get('/metafilter/:id', MetaFilterController.index);
+
+router.put('/releasemetaupdate/:id', ReleaseMetaUpdateController.update);
 
 router.get('/reportFilter/:rulesfilter', ReportFilterController.show)
 
